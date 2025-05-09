@@ -2,7 +2,7 @@
 class Solution {
 public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-        using T = tuple<int, int, int>;
+        using T = tuple<int, int, int>;　// (sum, i, j): nums1[i] + nums2[j], index i, index j
         priority_queue<T, vector<T>, greater<T>> pq;
         int n = nums1.size(), m = nums2.size();
         for (int i = 0; i < n && i < k; ++i) pq.emplace(nums1[i] + nums2[0], i, 0);
