@@ -11,7 +11,7 @@ public:
             auto [sum, i, j] = pq.top();
             ans.push_back({nums1[i], nums2[j]});
             pq.pop();
-            if(j + 1 < m) pq.emplace(nums1[i] + nums2[j+1], i, j+1);
+            if(j + 1 < m) pq.emplace(nums1[i] + nums2[j + 1], i, j + 1);
         }
         return ans;    
     }
