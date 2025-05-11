@@ -9,8 +9,8 @@ public:
             anagram_to_words[anagram].push_back(word); 
         }
         vector<vector<string>> ans;
-        for (auto entry : anagram_to_words) {
-            ans.push_back(entry.second);
+        for (auto [_, words] : anagram_to_words) {
+            ans.push_back(words);
         }
         return ans;
     }
