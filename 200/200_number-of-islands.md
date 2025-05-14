@@ -1,3 +1,4 @@
+BFS
 ```C++
 class Solution {
 public:
@@ -29,6 +30,36 @@ public:
             }
         }
         return ans;
+    }
+};
+```
+
+DFS
+```C++
+class Solution {
+    vector<int> dx = {1, 0, -1, 0}, dy = {0, 1, 0, -1};
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        int ans = 0;
+        for (int x = 0; x < m; x++) {
+            for (int y = 0; y < n; y++) {
+                if (grid[x][y] == '0')
+                    continue;
+                dfs(grid, x, y);
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    void dfs(vector<vector<char>>& grid, int x, int y) {
+        int m = grid.size(), n = grid[0].size();
+        if (x < 0 || x >= m || y < 0 || y >= n) return;
+        if (grid[x][y] == '0') return;
+        grid[x][y] = '0';
+        for (int dir = 0; dir < 4; dir++)
+            dfs(grid, x + dx[dir], y + dy[dir]);
     }
 };
 ```
