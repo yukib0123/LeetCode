@@ -5,31 +5,29 @@ public:
     int numIslands(vector<vector<char>>& grid) {
         int m = grid.size(), n = grid[0].size();
         vector<int> dx = {1, 0, -1, 0}, dy = {0, 1, 0, -1};
-        int ans = 0;
+        int num_islands = 0;
         vector<vector<bool>> visited(m, vector<bool>(n, false));
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int x = 0; x < m; x++) {
+            for (int y = 0; y < n; y++) {
+                if (visited[x][y] || grid[x][y] != '1') continue;
+                num_islands++;
                 queue<pair<int, int>> q;
-                if (!visited[i][j] && grid[i][j] == '1') {
-                    ans++;
-                    q.emplace(i, j);
-                    visited[i][j] = true;
-                    while (!q.empty()) {
-                        auto [x, y] = q.front();
-                        q.pop();
-                        for (int dir = 0; dir < 4; dir++) {
-                            int nx = x + dx[dir], ny = y + dy[dir];
-                            if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
-                            if (!visited[nx][ny] && grid[nx][ny] == '1') {
-                                q.emplace(nx, ny);
-                                visited[nx][ny] = true;
-                            }
-                        }
+                q.emplace(x, y);
+                visited[x][y] = true;
+                while (!q.empty()) {
+                    auto [x, y] = q.front();
+                    q.pop();
+                    for (int dir = 0; dir < 4; dir++) {
+                        int neighbor_x = x + dx[dir], neighbor_y = y + dy[dir];
+                        if (neighbor_x < 0 || neighbor_x >= m || neighbor_y < 0 || neighbor_y >= n) continue;
+                        if (visited[neighbor_x][neighbor_y] || grid[neighbor_x][neighbor_y] == '0') continue;
+                        q.emplace(neighbor_x, neighbor_y);
+                        visited[neighbor_x][neighbor_y] = true;
                     }
                 }
             }
         }
-        return ans;
+        return num_islands;
     }
 };
 ```
@@ -40,26 +38,27 @@ class Solution {
     vector<int> dx = {1, 0, -1, 0}, dy = {0, 1, 0, -1};
 public:
     int numIslands(vector<vector<char>>& grid) {
-        int m = grid.size(), n = grid[0].size();
-        int ans = 0;
+        vector<vector<char>> copied_grid = grid;
+        int m = copied_grid.size(), n = copied_grid[0].size();
+        int num_islands = 0;
         for (int x = 0; x < m; x++) {
             for (int y = 0; y < n; y++) {
-                if (grid[x][y] == '0')
+                if (copied_grid[x][y] == '0')
                     continue;
-                dfs(grid, x, y);
-                ans++;
+                traverse(copied_grid, x, y);
+                num_islands++;
             }
         }
-        return ans;
+        return num_islands;
     }
 
-    void dfs(vector<vector<char>>& grid, int x, int y) {
+    void traverse(vector<vector<char>>& grid, int x, int y) {
         int m = grid.size(), n = grid[0].size();
         if (x < 0 || x >= m || y < 0 || y >= n) return;
         if (grid[x][y] == '0') return;
         grid[x][y] = '0';
         for (int dir = 0; dir < 4; dir++)
-            dfs(grid, x + dx[dir], y + dy[dir]);
+            traverse(grid, x + dx[dir], y + dy[dir]);
     }
 };
 ```
