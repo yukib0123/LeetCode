@@ -24,7 +24,7 @@ public:
 ```
 
 修正版
-'''C++
+```C++
 class Solution {
 public:
     int rob(vector<int>& nums) {
@@ -44,4 +44,5 @@ private:
         return cur;
     }
 };
-'''
+```
+
