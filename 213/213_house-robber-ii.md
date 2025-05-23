@@ -22,3 +22,26 @@ public:
     }
 };
 ```
+
+修正版
+'''C++
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return nums[0];
+        return max(robbing(nums, 0, n - 1), robbing(nums, 1, n));
+    }
+private:
+    // 配列numsのインデックス[start, end)から得る最大値を返す
+    int robbing(vector<int>& nums, size_t start, size_t end) {
+        int pre = 0, cur = 0;
+        for(int i = start; i < end; i++) {
+            int tmp = cur;
+            cur = max(cur, pre + nums[i]);
+            pre = tmp;
+        }
+        return cur;
+    }
+};
+'''
