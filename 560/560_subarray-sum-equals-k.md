@@ -4,7 +4,8 @@ class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
         int len = nums.size();
-        vector<int> sum(len+1, 0);
+        // vector<int> sum(len+1, 0);
+        vector<int> sum(len + 1, 0);  // 二項演算子の前後では空白を置く
         sum[1] = nums[0];
         for (int i = 1; i < len; i++) sum[i + 1] = sum[i] + nums[i];
         int ans = 0;
