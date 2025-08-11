@@ -2,7 +2,9 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int l = 0, len = s.size(), longest_len = 1;
+        int l = 0;
+        int len = s.size();
+        int longest_len = 1;
         map<char, int> chara_to_index;
         if (len == 0) return 0;
         for (int r = 0; r < len; r++) {
